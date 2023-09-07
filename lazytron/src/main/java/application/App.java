@@ -20,13 +20,15 @@ public class App extends Application {
 	private Group root;
 	private Pane background;
 	private Scene scene;
+	
+	private final String TITLE = "LazyTron6000 v0.01";
 
     @Override
     public void start(Stage stage) {
     	
     	root = new Group();
     	background = new Pane();
-    	background.setId("pane");
+    	background.setId("background");
     	
     	root.getChildren().add(background);
     	scene = new Scene(root);
@@ -34,18 +36,14 @@ public class App extends Application {
     	window = stage;
     	background.setPrefSize(1280, 800);
     	window.setScene(scene);
+    	window.setResizable(false);
+    	window.setTitle(TITLE);
     	window.show();
-    	
-    	PDFReader reader = new PDFReader();
-    	try {
-			reader.gettFile();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
 
     }
-
+    
+    
     public static void main(String[] args) {
         launch();
     }

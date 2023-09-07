@@ -1,7 +1,22 @@
 
 
-#pane{
+#background{
 	
 	-fx-background-color: linear-gradient(to top right, lightgray, black);
+	
+}
+
+#navButton{
+	
+	-fx-pref-width: 150;
+	-fx-pref-height: 35;
+	-fx-background-radius: 90%;
+	-fx-border-style: solid;
+	-fx-border-width: 3;
+	
+}
+
+#navButtonBox{
+	
 	
 }
