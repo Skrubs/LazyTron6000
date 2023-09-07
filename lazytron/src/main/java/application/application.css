@@ -2,7 +2,7 @@
 
 #background{
 	
-	-fx-background-color: linear-gradient(to top right, lightgray, black);
+	-fx-background-color: linear-gradient(to bottom right, lightgray, black);
 	
 }
 
@@ -10,13 +10,26 @@
 	
 	-fx-pref-width: 150;
 	-fx-pref-height: 35;
-	-fx-background-radius: 90%;
+	-fx-background-radius: 20;
 	-fx-border-style: solid;
-	-fx-border-width: 3;
+	-fx-border-radius: 90%;
+	-fx-border-width: 2;
+	
+}
+
+#navButton:hover{
+	
+	
+}
+
+#navButton:clicked{
+	
 	
 }
 
 #navButtonBox{
 	
-	
+	-fx-background-color: linear-gradient(to bottom right, lightgray, black);
+	-fx-alignment: top-center;
+	-fx-spacing: 20;
 }

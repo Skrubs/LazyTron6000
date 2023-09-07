@@ -3,8 +3,9 @@ package application.components;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.stage.Screen;
 
-public class NavigationBar extends Pane{
+public class NavigationBar extends HBox{
 	
 	//BUTTONS FOR THE NAVIGATION BAR
 	private Button classAdminButton;
@@ -12,15 +13,17 @@ public class NavigationBar extends Pane{
 	private Button labsButton;
 	private Button exitButton;
 	
-	//HBOX TO HOLD THE BUTTONS IN A HORIZONTAL POSITION RELATIVE TO EACH OTHER
-	private HBox buttonBox;
-	
 	
 	public NavigationBar() {
+		super();
+		this.setId("navButtonBox");
 		initialization();
+		addButtons();
 	}
 	
-	
+	/**
+	 * Instantiates all navbar buttons
+	 */
 	private void initialization() {
 		
 		classAdminButton = new Button("Class Admin");
@@ -34,10 +37,41 @@ public class NavigationBar extends Pane{
 		
 		exitButton = new Button("Exit");
 		exitButton.setId("navButton");
+			
+	}
+	
+	private void setNavSize() {
 		
-		buttonBox = new HBox();
-		buttonBox.setId("navButtonBox");
+		
 		
 	}
+	
+	private void addButtons() {
+		
+		this.getChildren().addAll(classAdminButton, printCertsButton, labsButton, exitButton);
+		
+	}
+
+	//button getters for classadmin, printcerts, labs, exit.
+	
+	public Button getClassAdminButton() {
+		return classAdminButton;
+	}
+
+	public Button getPrintCertsButton() {
+		return printCertsButton;
+	}
+
+	public Button getLabsButton() {
+		return labsButton;
+	}
+
+	public Button getExitButton() {
+		return exitButton;
+	}
+	
+	
+	
+	
 
 }
