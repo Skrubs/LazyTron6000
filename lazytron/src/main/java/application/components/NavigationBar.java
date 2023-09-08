@@ -1,5 +1,6 @@
 package application.components;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -40,12 +41,9 @@ public class NavigationBar extends HBox{
 			
 	}
 	
-	private void setNavSize() {
-		
-		
-		
-	}
-	
+	/**
+	 * Adds buttons to the NavBar
+	 */
 	private void addButtons() {
 		
 		this.getChildren().addAll(classAdminButton, printCertsButton, labsButton, exitButton);

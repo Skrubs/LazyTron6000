@@ -8,11 +8,17 @@
 
 package application;
 
+
 import application.components.NavigationBar;
+import application.components.StudentViewBox;
+import application.views.ClassAdmin;
 import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -29,15 +35,25 @@ public class App extends Application {
 	private BorderPane background;
 	private Scene scene;
 	
+	//Height and Width of the scene.  based on primary screen visual bounds.
 	private double width;
 	private double height;
+	
+	//insets for element spacing for BorderPane
+	private Insets insets;
 	
 		
 	//Navigation bar declaration 
 	private NavigationBar navBar;
 	
+	//Student View Box declaration
+	private StudentViewBox studentViewBox;
+	
 	//Title for application version control based on CHANGELOG.txt.
 	private final String TITLE = "LazyTron6000 v0.01";
+	
+	//Declares class admin view this view is to bet set to the center node.
+	private ClassAdmin classAdminView;
 
     @Override
     public void start(Stage stage) {
@@ -45,6 +61,9 @@ public class App extends Application {
     	//WIDTH AND HEIGHT OF THE APPLICATION SET BY PRIMARY SCREEN RATIO 1.4W, 1.3H
     	width = Screen.getPrimary().getVisualBounds().getWidth() / 1.4;
     	height = Screen.getPrimary().getVisualBounds().getHeight() / 1.3;
+    	
+    	//Insets used for borderPane spacing
+    	insets = new Insets(25);
     	
     	//Background pane for main view all views are to be layered on top of this view
     	background = new BorderPane();
@@ -74,7 +93,26 @@ public class App extends Application {
     	navBarButtonActions();
     	
     	//Sets top of BPane as Navigation Bar
+    	BorderPane.setAlignment(navBar, Pos.CENTER);
     	background.setTop(navBar);
+    	
+    	//Outer shell for student view box. used for styling width and height of left bpane
+    	Pane leftShellPane = new Pane();
+    	leftShellPane.setId("leftshellpane");
+    	
+    	//sets left of BPane as Student View Box
+    	studentViewBox = new StudentViewBox();
+    	leftShellPane.getChildren().add(studentViewBox);
+    	BorderPane.setAlignment(leftShellPane, Pos.CENTER_LEFT);
+    	background.setLeft(leftShellPane);
+    	studentViewBox.setTranslateX(50);
+    	
+    	//sets center of BPane as Class Admin View to start, until other views are selected.
+    	classAdminView = new ClassAdmin();
+    	BorderPane.setAlignment(classAdminView, Pos.CENTER_LEFT);
+    	BorderPane.setMargin(classAdminView, insets);
+    	background.setCenter(classAdminView);
+    	
     
 
     }
