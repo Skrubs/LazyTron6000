@@ -9,6 +9,7 @@ import org.apache.pdfbox.text.PDFTextStripper;
 
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Stage;
 
 public class PDFReader{
 	
@@ -24,25 +25,34 @@ public class PDFReader{
 		
 	}
 	
-	public PDFReader(File file) {
-		
-		this.file = file;
-		
-	}
-	
 	/**
-	 * Loads in the PDF file using filechooser
+	 * Loads in the PDF file using filechooser.  IF NOTHING IS SELECTED WILL RETURN NULL
 	 * @throws IOException
 	 */
-	public void gettFile()throws IOException {
+	public String gettFile(Stage stage)throws IOException {
 		
-		ExtensionFilter filter = new ExtensionFilter("PDF files(*.pdf)", "*.pdf", "*.PDF");
+		//CREATES THE FILECHOOSER AND ADDS PDF ONLY EXTENSION.
+		ExtensionFilter filter = new ExtensionFilter("PDF Files", "*.PDF", "*.pdf");
 		chooser = new FileChooser();
 		chooser.setSelectedExtensionFilter(filter);
+		chooser.setInitialDirectory(new File(System.getProperty("user.home")));
+		chooser.getExtensionFilters().add(filter);
+		file = chooser.showOpenDialog(stage);
 		
+		//IF THE FILE IS NULL GETFILE() RETURNS NULL
+		if(file == null) {
+			return null;
+		}
 		
-		file = chooser.showOpenDialog(null);
+		//IF THE FILE FROM CHOOSER WAS A PDF FILE THE PDF LOADER WILL LOAD TO PDDOCUMENT
 		doc = Loader.loadPDF(file);
+		
+		//if the document is not empty it will return the selected document
+		if(doc != null) {
+			return convertPDFtoText(doc);
+		}
+		//returns null if the document was empty or no document selected;
+		return null;
 			
 	}
 	

@@ -9,16 +9,23 @@
 package application;
 
 
+import java.io.IOException;
+
 import application.components.NavigationBar;
 import application.components.StudentViewBox;
+import application.io.PDFReader;
 import application.views.ClassAdmin;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -54,6 +61,8 @@ public class App extends Application {
 	
 	//Declares class admin view this view is to bet set to the center node.
 	private ClassAdmin classAdminView;
+	
+	private String roster;
 
     @Override
     public void start(Stage stage) {
@@ -113,7 +122,11 @@ public class App extends Application {
     	BorderPane.setMargin(classAdminView, insets);
     	background.setCenter(classAdminView);
     	
-    
+    	//BUTTON ACTION METHODS
+    	classAdminActionButtons();
+    	
+    	//NAVBAR ACTION METHODS
+    	navBarButtonActions();
 
     }
     
@@ -122,7 +135,68 @@ public class App extends Application {
      */
     private void navBarButtonActions() {
     	
+    	//CLOSES THE APPLICATION
+    	navBar.getExitButton().setOnAction(e->{
+    		
+    		Platform.exit();
+    		
+    	});
     	
+    }
+    
+    private void classAdminActionButtons() {
+    	
+    	classAdminView.getUploadClassButton().setOnAction(e->{
+    		
+    		PDFReader reader = new PDFReader();
+    		try {
+				
+    			//TEMP STRING TO TEST IF THE PDF SELECTED IS A ROSTER
+    			String testFileIsRoster = "";
+    			
+    			//ONCE READER HAS THE FILE IT WILL PASS THE STRING TO CLASSTEXT
+    			String classText = reader.gettFile(window);
+    			
+    			//IF CLASSTEXT IS NULL (NO FILE SELECTED) THE METHOD WILL RETURN
+    			if(classText == null) {
+    				return;
+    			}
+    			
+				//GRABS THE LENGTH OF THE TEXT, IF GREATER THAN 9 THEN TESTFILEISROSTER IS SET
+    			if(classText.length() > 9) {
+    				
+    				testFileIsRoster = classText.substring(0, 8);
+    				
+    			}
+				
+    			//IF TESTFILEISROSTER IS EQUAL TO PREPARED THEN THE SELECTED FILE IS A ROSTER
+				if(!testFileIsRoster.equals("PREPARED")) {
+					
+					Alert a1 = new Alert(AlertType.ERROR);
+					a1.initOwner(window);
+					a1.initModality(Modality.WINDOW_MODAL);
+					a1.setContentText("The File Selected is not a Roster");
+					a1.show();
+					
+				}
+				
+				//IF THE TEST STRING EQUALS ROSTER SETS THE ROSTER STRING TO CLASSTEXT
+				if(testFileIsRoster.equals("PREPARED")) {
+					
+					roster = classText;
+					
+				}
+
+				//CATCHES ANY IOEXCEPTION
+			} catch (IOException e1) {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setContentText("No File");
+				alert.initModality(Modality.WINDOW_MODAL);
+				alert.show();
+				e1.printStackTrace();
+			}
+    		
+    	});
     	
     }
     
