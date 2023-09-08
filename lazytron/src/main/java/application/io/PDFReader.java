@@ -2,6 +2,9 @@ package application.io;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -66,6 +69,12 @@ public class PDFReader{
 	public String convertPDFtoText(PDDocument doc) throws IOException {
 		
 		return new PDFTextStripper().getText(doc);
+		
+	}
+	
+	public static void writeToRoster(String roster) {
+	
+		
 		
 	}
 

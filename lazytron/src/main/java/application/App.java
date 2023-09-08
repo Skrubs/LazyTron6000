@@ -127,6 +127,8 @@ public class App extends Application {
     	
     	//NAVBAR ACTION METHODS
     	navBarButtonActions();
+    	
+    	
 
     }
     
@@ -185,6 +187,8 @@ public class App extends Application {
 					
 					roster = classText;
 					
+					PDFReader.writeToRoster(roster);
+					
 				}
 
 				//CATCHES ANY IOEXCEPTION
@@ -198,8 +202,7 @@ public class App extends Application {
     		
     	});
     	
-    }
-    
+    }    
     
     public static void main(String[] args) {
         launch();
