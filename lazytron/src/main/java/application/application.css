@@ -1,7 +1,39 @@
 
+
+#previewContainer{
+	
+	-fx-padding: 5;
+	
+}
+
+#previewContainer:hover{
+	
+	-fx-border-color: blue;
+	-fx-border-style: solid;
+	
+}
+
+#vBox_1{
+	
+	-fx-padding: 35 10 10 50;
+	
+}
+
+#hBox_1{
+	
+	-fx-padding:10 10 10 10;
+	-fx-spacing: 20;
+	
+}
+
 #printcertview{
 	
-	
+	-fx-border-color: black;
+	-fx-effect: dropshadow(gaussian, black, 20, 0.5, 2, 2);
+	-fx-border-style: solid;
+	-fx-background-color: linear-gradient(to bottom right, gray, black);
+	-fx-max-height: 600;
+	-fx-max-width: 800;
 	
 }
 

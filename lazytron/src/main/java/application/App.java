@@ -19,8 +19,10 @@ import java.util.ArrayList;
 
 import application.components.NavigationBar;
 import application.components.StudentViewBox;
+import application.io.ImageLoader;
 import application.io.PDFReader;
 import application.views.ClassAdmin;
+import application.views.PrintCertView;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -32,6 +34,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ListView;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
@@ -68,7 +71,11 @@ public class App extends Application {
 
 	// Declares class admin view this view is to bet set to the center node.
 	private ClassAdmin classAdminView;
+	
+	//Declares printCertView
+	private PrintCertView printCertView;
 
+	//Roster saved from read in
 	private String roster;
 
 	// Declares home string that stores the path for the roster
@@ -122,6 +129,8 @@ public class App extends Application {
 		window.sizeToScene();
 		window.show();
 
+
+		
 		// Navigation bar instantiation, Navigation bar is used in all views
 		navBar = new NavigationBar();
 
@@ -150,6 +159,9 @@ public class App extends Application {
 		BorderPane.setAlignment(classAdminView, Pos.CENTER_LEFT);
 		BorderPane.setMargin(classAdminView, insets);
 		background.setCenter(classAdminView);
+		
+		//Instantiate printCertView
+		printCertView = new PrintCertView();
 
 		// BUTTON ACTION METHODS
 		classAdminActionButtons();
@@ -210,6 +222,15 @@ public class App extends Application {
 
 			Platform.exit();
 
+		});
+		
+		//PRINTERT ACTION
+		navBar.getPrintCertsButton().setOnAction(e->{
+			
+			background.setCenter(null);
+			background.setCenter(printCertView);
+			
+			
 		});
 
 	}
