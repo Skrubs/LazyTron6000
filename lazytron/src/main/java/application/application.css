@@ -2,7 +2,11 @@
 
 #previewContainer{
 	
-	-fx-padding: 5;
+	-fx-pref-width: 205;
+	-fx-max-height: 160;
+	-fx-padding: 10;
+	-fx-alignment: center;
+	-fx-border-insets: -5 5 5 -5;
 	
 }
 
@@ -10,19 +14,31 @@
 	
 	-fx-border-color: blue;
 	-fx-border-style: solid;
+	-fx-border-width: 6;
+	-fx-scale-x: 1.1;
+	-fx-scale-y: 1.1;
+
+}
+
+#previewContainer_selected{
+	
+	-fx-border-color: yellow;
 	
 }
 
 #vBox_1{
 	
-	-fx-padding: 35 10 10 50;
+	-fx-spacing: 20;
+	-fx-padding: 25;
+	
 	
 }
 
 #hBox_1{
 	
-	-fx-padding:10 10 10 10;
-	-fx-spacing: 20;
+	-fx-spacing: 25;
+	-fx-pref-height: 220;
+	-fx-pref-width: 800;
 	
 }
 

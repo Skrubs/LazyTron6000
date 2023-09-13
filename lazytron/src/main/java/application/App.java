@@ -232,6 +232,14 @@ public class App extends Application {
 			
 			
 		});
+		
+		//Class Admin View
+		navBar.getClassAdminButton().setOnAction(e->{
+			
+			background.setCenter(null);
+			background.setCenter(classAdminView);
+			
+		});
 
 	}
 

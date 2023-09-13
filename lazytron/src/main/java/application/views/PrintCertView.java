@@ -1,6 +1,7 @@
 package application.views;
 
 import application.io.ImageLoader;
+import javafx.geometry.Insets;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -23,8 +24,7 @@ public class PrintCertView extends Pane {
 	private ImageView gradView;
 	
 	private double fitHeightSize = 150;
-	
-	
+		
 	public PrintCertView() {
 		
 		super();
@@ -40,6 +40,8 @@ public class PrintCertView extends Pane {
 		//INITIALIZES VIEW CONTAINERS
 		vBox_1 = new VBox();
 		vBox_1.setId("vBox_1");
+		vBox_1.setMinSize(600,500);
+		vBox_1.setPrefSize(800, 600);
 		
 		hBox_1 = new HBox();
 		hBox_1.setId("hBox_1");
@@ -57,6 +59,7 @@ public class PrintCertView extends Pane {
 		Pane p1 = new Pane();
 		p1.setId("previewContainer");
 		p1.getChildren().add(abcView);
+		
 		
 		dgView = new ImageView(ImageLoader.dgCert);
 		dgView.setFitHeight(fitHeightSize);
