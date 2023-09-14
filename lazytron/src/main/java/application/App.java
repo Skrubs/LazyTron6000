@@ -36,6 +36,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
@@ -71,11 +72,11 @@ public class App extends Application {
 
 	// Declares class admin view this view is to bet set to the center node.
 	private ClassAdmin classAdminView;
-	
-	//Declares printCertView
+
+	// Declares printCertView
 	private PrintCertView printCertView;
 
-	//Roster saved from read in
+	// Roster saved from read in
 	private String roster;
 
 	// Declares home string that stores the path for the roster
@@ -129,8 +130,6 @@ public class App extends Application {
 		window.sizeToScene();
 		window.show();
 
-
-		
 		// Navigation bar instantiation, Navigation bar is used in all views
 		navBar = new NavigationBar();
 
@@ -159,8 +158,8 @@ public class App extends Application {
 		BorderPane.setAlignment(classAdminView, Pos.CENTER_LEFT);
 		BorderPane.setMargin(classAdminView, insets);
 		background.setCenter(classAdminView);
-		
-		//Instantiate printCertView
+
+		// Instantiate printCertView
 		printCertView = new PrintCertView();
 
 		// BUTTON ACTION METHODS
@@ -169,14 +168,14 @@ public class App extends Application {
 		// NAVBAR ACTION METHODS
 		navBarButtonActions();
 
-		//LOADS STUDENTS TO THE LIST VIEW
+		// LOADS STUDENTS TO THE LIST VIEW
 		loadStudentsToListView();
 
-	}//END START
-	
+	}// END START
+
 	// CHECKS TO SEE IF THE ROSTER IS AVAILABLE IF SO WILL LOAD STUDENTS
 	private void loadStudentsToListView() {
-		
+
 		try {
 
 			boolean isRoster = checkIsRosterAvailable();
@@ -185,19 +184,19 @@ public class App extends Application {
 
 				ObservableList<Student> list = FXCollections.observableArrayList(studentList);
 
-				if(listView.getItems().isEmpty()) {
-					
+				if (listView.getItems().isEmpty()) {
+
 					listView.setItems(list);
-					
-				}else {
-					
+
+				} else {
+
 					listView.getItems().clear();
 					listView.setItems(list);
-					
+
 				}
 
 				if (studentViewBox != null && !studentViewBox.getChildren().contains(listView)) {
-					
+
 					studentViewBox.getChildren().clear();
 					studentViewBox.getChildren().add(listView);
 
@@ -209,7 +208,7 @@ public class App extends Application {
 
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	/**
@@ -223,26 +222,31 @@ public class App extends Application {
 			Platform.exit();
 
 		});
-		
-		//PRINTERT ACTION
-		navBar.getPrintCertsButton().setOnAction(e->{
-			
+
+		// PRINTCERT ACTION
+		navBar.getPrintCertsButton().setOnAction(e -> {
+
 			background.setCenter(null);
-			background.setCenter(printCertView);
-			
-			
+			HBox print_H_Box = new HBox();
+			print_H_Box.setId("printhbox");
+			print_H_Box.getChildren().addAll(printCertView.printButtonBox(), printCertView);
+			background.setCenter(print_H_Box);
+
 		});
-		
-		//Class Admin View
-		navBar.getClassAdminButton().setOnAction(e->{
-			
+
+		// Class Admin View
+		navBar.getClassAdminButton().setOnAction(e -> {
+
 			background.setCenter(null);
 			background.setCenter(classAdminView);
-			
+
 		});
 
 	}
 
+	/**
+	 * Actions for ClassAdmin Buttons
+	 */
 	private void classAdminActionButtons() {
 
 		classAdminView.getUploadClassButton().setOnAction(e -> {
@@ -284,9 +288,8 @@ public class App extends Application {
 					roster = classText;
 
 					writeRoster(roster);
-					
-					loadStudentsToListView();
 
+					loadStudentsToListView();
 
 				}
 			} catch (IOException | URISyntaxException f) {
@@ -449,17 +452,17 @@ public class App extends Application {
 					rank = determineRank(s);
 				}
 			}
-			
-			//CHECKS TO SEE IF THE STUDENT ARLEADY EXISTS IN THE LIST.  IF SO IT WILL NOT DUPLICATE.
+
+			// CHECKS TO SEE IF THE STUDENT ARLEADY EXISTS IN THE LIST. IF SO IT WILL NOT
+			// DUPLICATE.
 			Student student = new Student(rank, firstName, lastName, middle, startDate, gradDate);
-			
-			if(!studentList.contains(student)) {
-				
+
+			if (!studentList.contains(student)) {
+
 				studentList.add(student);
-				
+
 			}
 
-			
 		} // END FOR
 
 		return true;

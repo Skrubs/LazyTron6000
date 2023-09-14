@@ -1,4 +1,11 @@
 
+#printhbox{
+	
+	-fx-padding: 55 5 5 20;
+	-fx-spacing: 55;
+	
+	
+}
 
 #previewContainer{
 	
@@ -15,14 +22,21 @@
 	-fx-border-color: blue;
 	-fx-border-style: solid;
 	-fx-border-width: 6;
-	-fx-scale-x: 1.1;
-	-fx-scale-y: 1.1;
+	-fx-scale-x: 1.2;
+	-fx-scale-y: 1.2;
 
 }
 
 #previewContainer_selected{
 	
+	-fx-pref-width: 205;
+	-fx-max-height: 160;
+	-fx-padding: 10;
+	-fx-alignment: center;
+	-fx-border-insets: -5 5 4 -5;
 	-fx-border-color: yellow;
+	-fx-border-style: solid;
+	-fx-border-width: 6;
 	
 }
 
@@ -49,7 +63,7 @@
 	-fx-border-style: solid;
 	-fx-background-color: linear-gradient(to bottom right, gray, black);
 	-fx-max-height: 600;
-	-fx-max-width: 800;
+	-fx-max-width: 700;
 	
 }
 
