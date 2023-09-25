@@ -1,4 +1,21 @@
 
+
+#nameLabel{
+	
+	-fx-font-weight: bold;
+	-fx-font-size: 20;
+	-fx-font-style: italic;
+		
+}
+
+#gradLabel{
+	
+	-fx-font-weight: bold;
+	-fx-font-size: 12;
+	
+}
+
+
 #printhbox{
 	
 	-fx-padding: 55 5 5 20;

@@ -57,6 +57,16 @@ public class Student {
 		return rank + " " + lastName + ", " + firstName;
 		
 	}
+	
+	/**
+	 * returns a string representation of students for certificate printing
+	 * @return
+	 */
+	public String certString() {
+		
+		return rank + " " + firstName + " " + middleInitial + " " + lastName;
+		
+	}
 
 	//SETTERS AND GETTERS BELOW FOR ALL VARIABLES OF THE STUDENT CLASS.
 	

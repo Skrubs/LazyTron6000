@@ -231,6 +231,7 @@ public class App extends Application {
 			print_H_Box.setId("printhbox");
 			print_H_Box.getChildren().addAll(printCertView.printButtonBox(), printCertView);
 			background.setCenter(print_H_Box);
+			printCertView.getStudentList(studentList);
 
 		});
 
@@ -457,7 +458,7 @@ public class App extends Application {
 			// DUPLICATE.
 			Student student = new Student(rank, firstName, lastName, middle, startDate, gradDate);
 
-			if (!studentList.contains(student)) {
+			if (!isStudentExists(student, studentList)) {
 
 				studentList.add(student);
 
@@ -467,6 +468,37 @@ public class App extends Application {
 
 		return true;
 
+	}
+
+	/**
+	 * compares if a student already exists in the studentlist
+	 * @param student
+	 * @param studentList
+	 * @return
+	 */
+	public boolean isStudentExists(Student student, ArrayList<Student> studentList) {
+
+		if (studentList.size() == 0) {
+			return false;
+		}
+
+		for (Student e : studentList) {
+
+			var firstName = e.getFirstName();
+			var lastName = e.getLastName();
+			var middleName = e.getMiddleInitial();
+
+			if (student.getFirstName().equals(firstName) && 
+				student.getLastName().equals(lastName)	&& 
+				student.getMiddleInitial().equals(middleName)) {
+
+				return true;
+
+			}
+
+		}
+
+		return false;
 	}
 
 	/**

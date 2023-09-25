@@ -3,8 +3,15 @@ package application.views;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import application.io.ImageLoader;
-import javafx.geometry.Insets;
+import application.Student;
+import application.io.CertPrinter;
+import certificates.ABCCert;
+import certificates.DGCert;
+import certificates.GradCert;
+import certificates.ImpactCert;
+import certificates.SalesCert;
+import certificates.TGCert;
+import certificates.TorresCert;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
@@ -15,18 +22,22 @@ import javafx.scene.layout.VBox;
 public class PrintCertView extends Pane {
 	
 	
+	private CertPrinter job = new CertPrinter();
+	
+	
 	private VBox vBox_1;
 	private HBox hBox_1;
 	private HBox hBox_2;
 	private HBox hBox_3;
-	
-	private ImageView abcView;
-	private ImageView dgView;
-	private ImageView impactView;
-	private ImageView salesView;
-	private ImageView salvView;
-	private ImageView tgView;
-	private ImageView gradView;
+
+	//CERTIFICATES
+	GradCert gradCert = new GradCert();
+	ImpactCert impactCert = new ImpactCert();
+	TGCert tgCert = new TGCert();
+	DGCert dgCert = new DGCert();
+	SalesCert salesCert = new SalesCert();
+	TorresCert salvCert = new TorresCert();
+	ABCCert abcCert = new ABCCert();
 	
 	//BUTTONS FOR PRINTING OPTIONS.  YOU CAN EITHER PRINTALL FOR GRAD ADN IMPACT
 	//OR YOU CAN PRINT SELECTED FOR ANY CERTIFICATE
@@ -36,8 +47,13 @@ public class PrintCertView extends Pane {
 	//VBOX FOR BUTTONS
 	private VBox printVBox;
 	
-	//FIT HEIGHT FOR IMAGEVIEWS
-	private double fitHeightSize = 150;
+	//selectionmodel arraylist
+	private ArrayList<Pane> selectionModel;
+	
+	//List of Certificates for easy access
+	private ArrayList<Pane> certList;
+	
+	private ArrayList<Student> studentList = new ArrayList<>();
 		
 	/**
 	 * BASIC CONSTRUCTOR
@@ -47,6 +63,8 @@ public class PrintCertView extends Pane {
 		super();
 		this.setId("printcertview");
 		initialize();
+		initializeButtonBox();
+		buttonAction();
 	}
 	
 	/**
@@ -71,62 +89,14 @@ public class PrintCertView extends Pane {
 		
 		//ArrayLists that contain the Panes for the imageviews
 		//The selectionModel is used to determine if Pane == selected
-		ArrayList<Pane> containers = new ArrayList<>();
-		ArrayList<Pane> selectionModel = new ArrayList<>();
-		
-		//INITIALIZES IMAGEVIEWS
-		abcView = new ImageView(ImageLoader.abcCert);
-		abcView.setFitHeight(fitHeightSize);
-		abcView.setPreserveRatio(true);
-		Pane p1 = new Pane();
-		p1.setId("previewContainer");
-		p1.getChildren().add(abcView);		
-		
-		dgView = new ImageView(ImageLoader.dgCert);
-		dgView.setFitHeight(fitHeightSize);
-		dgView.setPreserveRatio(true);
-		Pane p2 = new Pane();
-		p2.setId("previewContainer");
-		p2.getChildren().add(dgView);
-		
-		impactView = new ImageView(ImageLoader.impactCert);
-		impactView.setFitHeight(fitHeightSize);
-		impactView.setPreserveRatio(true);
-		Pane p3 = new Pane();
-		p3.setId("previewContainer");
-		p3.getChildren().add(impactView);
-		
-		salesView = new ImageView(ImageLoader.salesCert);
-		salesView.setFitHeight(fitHeightSize);
-		salesView.setPreserveRatio(true);
-		Pane p4 = new Pane();
-		p4.setId("previewContainer");
-		p4.getChildren().add(salesView);
-		
-		salvView = new ImageView(ImageLoader.salvCert);
-		salvView.setFitHeight(fitHeightSize);
-		salvView.setPreserveRatio(true);
-		Pane p5 = new Pane();
-		p5.setId("previewContainer");
-		p5.getChildren().add(salvView);
-		
-		tgView = new ImageView(ImageLoader.tgCert);
-		tgView.setFitHeight(fitHeightSize);
-		tgView.setPreserveRatio(true);
-		Pane p6 = new Pane();
-		p6.setId("previewContainer");
-		p6.getChildren().add(tgView);
-		
-		gradView = new ImageView(ImageLoader.gradCert);
-		gradView.setFitHeight(fitHeightSize);
-		gradView.setPreserveRatio(true);
-		Pane p7 = new Pane();
-		p7.setId("previewContainer");
-		p7.getChildren().add(gradView);
-		
-		hBox_1.getChildren().addAll(p7, p3, p4);
-		hBox_2.getChildren().addAll(p1, p6, p2);
-		hBox_3.getChildren().add(p5);
+		certList = new ArrayList<>();
+		selectionModel = new ArrayList<>();
+
+		//ADDS CERTIFICATES TO THEIR RESPECTIVE H_BOX FOR LAYOUT
+		//HBOX IS THEN ADDED TO A VBOX FOR ADDITIONAL LAYOUT CONTROL
+		hBox_1.getChildren().addAll(gradCert, impactCert, salesCert);
+		hBox_2.getChildren().addAll(tgCert, dgCert, salvCert);
+		hBox_3.getChildren().add(abcCert);
 		
 		//VBOX ADDS ALL IMAGEVIEW CONTAINERS
 		vBox_1.getChildren().addAll(hBox_1, hBox_2, hBox_3);
@@ -135,11 +105,12 @@ public class PrintCertView extends Pane {
 		this.getChildren().add(vBox_1);
 		
 		//ARRAYLIST CONTAINERS ADDS ALL IMAGEVIEW CONTAINERS TO LIST
-		containers.addAll(Arrays.asList(p1, p2, p3, p4, p5, p6, p7));
+		certList.addAll(Arrays.asList(gradCert, impactCert, salesCert, tgCert,
+										dgCert, salvCert, abcCert));
 		
 		
 		//GOES THROUGH ALL PANES IN THE CONTAINRES LIST
-		for(Pane p : containers) {
+		for(Pane p : certList) {
 				
 			//SETS TEH ON MOUSE CLICKED FOR EACH IMAGEVIEW CONTAINER
 			p.setOnMouseClicked(e->{
@@ -150,7 +121,7 @@ public class PrintCertView extends Pane {
 				selectionModel.add(p);
 				p.setId("previewContainer_selected");
 				
-				containers.forEach(pane ->{
+				certList.forEach(pane ->{
 					
 					if(!selectionModel.contains(pane)) {
 						
@@ -170,17 +141,31 @@ public class PrintCertView extends Pane {
 				
 	}
 	
-	/**
-	 * Returns VBox that holds the buttons printall and printselected in the 
-	 * printcertview
-	 * @return
-	 */
-	public VBox printButtonBox() {
+	//GETS STUDENTLIST FROM APP
+	public void getStudentList(ArrayList<Student> studentList){
+		this.studentList = studentList;
+	}
+	
+	//button actions
+	private void buttonAction() {
+		
+		printAll.setOnAction(e->{
+			
+			Student s = studentList.get(0);
+			
+			ImageView iv = gradCert.getSnapShot(s);
+								
+			job.printAll(iv);
+			
+		});
+		
+	}
+	
+	//INSTANTIATES BUTTONS
+	private void initializeButtonBox() {
 		
 		printVBox = new VBox();
-		
-		
-		
+					
 		printVBox.setAlignment(Pos.CENTER);
 		
 		printVBox.setSpacing(25);
@@ -191,6 +176,15 @@ public class PrintCertView extends Pane {
 		
 		printVBox.getChildren().addAll(printAll, printSelected);
 		
+	}
+	
+
+	/**
+	 * Returns VBox that holds the buttons printall and printselected in the 
+	 * printcertview
+	 * @return
+	 */
+	public VBox printButtonBox() {
 		
 		return printVBox;
 	}
