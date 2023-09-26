@@ -23,7 +23,11 @@ public class GradCert extends Certificate {
 		
 	}
 	
-	
+	/**
+	 * 
+	 * @param student
+	 * @return ImageView
+	 */
 	public ImageView getSnapShot(Student student) {
 		
 		ImageView iv = new ImageView(ImageLoader.gradCert);

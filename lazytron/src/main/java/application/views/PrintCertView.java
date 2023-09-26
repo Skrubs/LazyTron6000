@@ -151,11 +151,37 @@ public class PrintCertView extends Pane {
 		
 		printAll.setOnAction(e->{
 			
-			Student s = studentList.get(0);
+			//CHECKS THE CURRENT SELECTIONMODEL IS SET TO GRAD OR IMPACT
+			if(!selectionModel.contains(gradCert) && !selectionModel.contains(impactCert)) {
+				
+				System.out.println("Not correct");
+				return;
+			}
 			
-			ImageView iv = gradCert.getSnapShot(s);
-								
-			job.printAll(iv);
+			//CHECKS IF A CLASS HAS BEEN UPLOADED
+			if(studentList.size() == 0) {
+				
+				System.out.println("No students");
+				return;
+			}
+			
+			studentList.forEach(s->{
+				
+				if(selectionModel.contains(gradCert)) {
+					
+					gradCert.getSnapShot(s);
+					
+				}
+				
+				if(selectionModel.contains(impactCert)) {
+					
+					impactCert.getSnapShot(s);
+					
+				}
+				
+			});
+			
+			
 			
 		});
 		
