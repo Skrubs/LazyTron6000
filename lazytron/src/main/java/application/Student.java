@@ -32,6 +32,7 @@ public class Student {
 		this.gradDate = gradDate;
 		
 		instantiateScores();
+		this.gradDate = gradDateConversion(gradDate);
 		
 	}
 	
@@ -67,6 +68,74 @@ public class Student {
 		return rank + " " + firstName + " " + middleInitial + " " + lastName;
 		
 	}
+	
+	/**
+	 * Converts Date from yearmonthday to Day-Month-Year
+	 * @param gradDate
+	 * @return
+	 */
+	public String gradDateConversion(String gradDate) {
+		String result = "";
+		String year = gradDate.substring(0,4);
+		String month = monthConversion(gradDate);
+		String day = gradDate.substring(6,8);
+		
+		
+		result = day + "-" + month + "-" + year;
+		
+		return result;
+	}
+	
+	private String monthConversion(String gradDate) {
+		String month = gradDate.substring(4,6);
+		
+		switch(month) {
+		case "01":
+			month = "Jan";
+			break;
+		case "02":
+			month = "Feb";
+			break;
+		case "03":
+			month = "Mar";
+			break;
+		case "04":
+			month = "Apr";
+			break;
+		case "05":
+			month = "May";
+			break;
+		case "06":
+			month = "Jun";
+			break;
+		case "07":
+			month = "Jul";
+			break;
+		case "08":
+			month = "Aug";
+			break;
+		case "09":
+			month = "Sep";
+			break;
+		case "10":
+			month = "Oct";
+			break;
+		case "11":
+			month = "Nov";
+			break;
+		case "12":
+			month = "Dec";
+			break;
+		default: 
+			month = "unknown";
+			break;
+		}
+		
+				
+		return month;
+		
+	}
+	
 
 	//SETTERS AND GETTERS BELOW FOR ALL VARIABLES OF THE STUDENT CLASS.
 	

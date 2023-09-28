@@ -18,8 +18,8 @@ public class ImageLoader {
 	
 	public static Image abcCert = new Image(abcLocation, 500, 500, true, false);
 	public static Image dgCert = new Image(dgLocation, 500, 500, true, false);
-	public static Image gradCert = new Image(gradLocation, 500, 500, true, false);
-	public static Image impactCert = new Image(impactLocation, 500, 500, true, false);
+	public static Image gradCert = new Image(gradLocation, 800, 800, true, false);
+	public static Image impactCert = new Image(impactLocation, 800, 800, true, false);
 	public static Image salesCert = new Image(salesLocation, 500, 500, true, false);
 	public static Image salvCert = new Image(salvLocation, 500, 500, true, false);
 	public static Image tgCert = new Image(tgLocation, 500, 500, true, false);
