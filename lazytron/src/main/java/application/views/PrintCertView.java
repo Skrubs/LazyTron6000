@@ -192,6 +192,14 @@ public class PrintCertView extends Pane {
 			});
 
 		});
+		
+		
+		//PRINT SELECTED ACTION LAMDA
+		printSelected.setOnAction(e->{
+			
+			
+			
+		});
 
 	}
 
